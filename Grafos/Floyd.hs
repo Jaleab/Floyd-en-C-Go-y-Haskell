@@ -1,15 +1,17 @@
 -- join para retornar algo despues de I/O
 import Control.Monad (join)
 import Data.List (union)
-import Data.Map hiding (foldr, union)
+import Data.Map hiding (foldr, union, map)
 import Data.Maybe (fromJust, isJust)
 import Data.Semigroup
 import Prelude hiding (lookup, filter)
+import System.Environment (getArgs)
 
 data Shortest b a = Shortest { distance :: a, path :: [b] }
                   deriving Show
 
 instance (Ord a, Eq b) => Semigroup (Shortest b a) where
+  -- <> mappend: sirve para unir
   a <> b = case distance a `compare` distance b of
     GT -> b
     LT -> a
@@ -45,8 +47,26 @@ g = fromList [((2,1), 4)
              ,((2,3), 3)
              ,((1,3), -2)
              ,((3,4), 2)
-             ,((4,2), -1)]
+             ,((4,2), -1)
+             , ((5,5), 0)]
 showShortestPaths v g = mapM_ print $ toList $ findMinDistances v g
+
+
+
+
+main :: IO()
+main = do
+   args <- getArgs
+   content <- readFile (args !! 0)
+   let str = map (read::Integer)(words content) -- :: [Integer]
+   elemAt 1 (str)
+   print str
+   --let str = words content 
+      --str = f str
+      --data = executeList 0 list
+   --showShortestPaths [1..4] (Sum <$> g)
+   --let valor =  str!!1 
+   --print str
 
 -- Ejecucion Linux despues de instalar Haskell 
 -- Creo que lo que falta es usar openFile o withFile para hacer el g (lista con Key:Value)
