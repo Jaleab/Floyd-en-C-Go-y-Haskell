@@ -2,14 +2,23 @@
 -- join para retornar algo despues de I/O
 import Control.Monad (join, forM_)
 import Data.List (union)
+<<<<<<< HEAD
 -- import Data.Pair 
 import Data.Map as Map hiding (foldr, union, map, foldl)
+=======
+import Data.Map hiding (foldr, union, map)
+>>>>>>> 7882368f42fea18f5b4dc6baedd164b83d70f62d
 import Data.Maybe (fromJust, isJust)
 --import Data.FiniteMap (insertList)
 import Data.Semigroup
+<<<<<<< HEAD
 import Prelude hiding (lookup, filter, null)
 import System.Environment (getArgs)
 import Data.List.Split (chunksOf)
+=======
+import Prelude hiding (lookup, filter)
+import System.Environment (getArgs)
+>>>>>>> 7882368f42fea18f5b4dc6baedd164b83d70f62d
 
 data Shortest b a = Shortest { distance :: a, path :: [b] }
                   deriving Show
@@ -53,6 +62,7 @@ g = fromList [((2,1), 4)
              ,((3,4), 2)
              ,((4,2), -1)
              , ((5,5), 0)]
+<<<<<<< HEAD
 --showShortestPaths v g = mapM_ print $ toList $ findMinDistances v g
 showShortestPaths v g = toList $ (findMinDistances v g)
 
@@ -82,6 +92,26 @@ main = do
    -- ghc Floyd.hs -o Floyd
    -- ./Floyd sparse1.txt
 
+=======
+showShortestPaths v g = mapM_ print $ toList $ findMinDistances v g
+>>>>>>> 7882368f42fea18f5b4dc6baedd164b83d70f62d
+
+
+
+
+main :: IO()
+main = do
+   args <- getArgs
+   content <- readFile (args !! 0)
+   let str = map (read::Integer)(words content) -- :: [Integer]
+   elemAt 1 (str)
+   print str
+   --let str = words content 
+      --str = f str
+      --data = executeList 0 list
+   --showShortestPaths [1..4] (Sum <$> g)
+   --let valor =  str!!1 
+   --print str
 
 -- Ejecucion Linux despues de instalar Haskell 
 -- Creo que lo que falta es usar openFile o withFile para hacer el g (lista con Key:Value)

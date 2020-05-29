@@ -1,4 +1,4 @@
-#Example: python grafos.py -n 5 -e 8 -d -o prueba.txt
+#Example: python grafos.py -n 5 -e 8 -d -num 5
 import argparse
 import networkx as nx
 import random
@@ -22,8 +22,14 @@ if __name__ == '__main__':
 	parser.add_argument("--nodes", "-n", help="Set number of nodes", required=True, type=int)
 	parser.add_argument("--edges", "-e", help="Set number of edges", required=True, type=int)
 	parser.add_argument("--densegraph","-d", help="If true uses dense function", action="store_true")
-	parser.add_argument("--output", "-o", help="Output file name", required=True)
+	parser.add_argument("--number", "-num", help="Number of graphs", required=True, type=int)
 
 	args = parser.parse_args()
+	if args.densegraph == True:
+		graphType = "dense"
+	else:
+		graphType = "sparse"
 
-	generate_graphs(args.nodes, args.edges, args.densegraph, args.output)
+	for x in range(args.number):
+		outputName = graphType + str(x) + ".txt"
+		generate_graphs(args.nodes, args.edges, args.densegraph, outputName)
