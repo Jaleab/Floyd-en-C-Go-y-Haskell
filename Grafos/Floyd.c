@@ -74,7 +74,7 @@ void floydWarshall(graph g){
 int main(int argC,char* argV[]){
 	if(argC!=2)
 	{
-		printf("Usage : Floyd <file containing graph data>");
+		printf("Usage : Floyd <file containing graph data>\n");
 	}
 	else
 	{
@@ -92,7 +92,7 @@ int main(int argC,char* argV[]){
 		double elapsed = (finish.tv_sec - start.tv_sec);
 		elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-		printf("Elapsed: %.9lf\n", elapsed);
+		printf("%.9lf", elapsed);
 	}
 	return 0;
 }

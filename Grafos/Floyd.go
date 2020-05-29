@@ -177,5 +177,5 @@ func main() {
 
 	// Posix time
 	elapsed := (float64(finish.UnixNano()) - float64(start.UnixNano()) ) / 1000000000 
-	fmt.Println("Elapsed:", elapsed)
+	fmt.Printf("%.9f",elapsed)
 }
