@@ -1,24 +1,17 @@
-
--- join para retornar algo despues de I/O
 import Control.Monad (join, forM_)
 import Data.List (union)
-<<<<<<< HEAD
--- import Data.Pair 
 import Data.Map as Map hiding (foldr, union, map, foldl)
-=======
-import Data.Map hiding (foldr, union, map)
->>>>>>> 7882368f42fea18f5b4dc6baedd164b83d70f62d
 import Data.Maybe (fromJust, isJust)
---import Data.FiniteMap (insertList)
 import Data.Semigroup
-<<<<<<< HEAD
 import Prelude hiding (lookup, filter, null)
 import System.Environment (getArgs)
-import Data.List.Split (chunksOf)
-=======
-import Prelude hiding (lookup, filter)
-import System.Environment (getArgs)
->>>>>>> 7882368f42fea18f5b4dc6baedd164b83d70f62d
+
+--import Data.Time
+--import System.Posix.Unistd
+
+import Text.Printf
+import Control.Exception
+import System.CPUTime
 
 data Shortest b a = Shortest { distance :: a, path :: [b] }
                   deriving Show
@@ -62,16 +55,23 @@ g = fromList [((2,1), 4)
              ,((3,4), 2)
              ,((4,2), -1)
              , ((5,5), 0)]
-<<<<<<< HEAD
 --showShortestPaths v g = mapM_ print $ toList $ findMinDistances v g
 showShortestPaths v g = toList $ (findMinDistances v g)
-
---graph = Map.empty
-
 
 
 insertList :: Ord key => [(key,elt)] -> Map key elt -> Map key elt
 insertList xs m = foldl (\m (k, v) -> Map.insert k v m) m xs
+
+time :: IO t -> IO t
+time a = do
+    start <- getCPUTime
+    v <- a
+    end   <- getCPUTime
+    let diff = (fromIntegral (end - start)) / (10^12)
+    --printf "Computation time: %0.3f sec\n" (diff :: Double)
+    printf "%f" (diff :: Double)
+    return v
+
 
 main :: IO()
 main = do
@@ -80,38 +80,25 @@ main = do
    let items = (map read).words
    let str = map items (lines content) :: [[Int]]
    let nodesQty = str!!0!!0
-   let edgesQty = str!!0!!1
+   --let edgesQty = str!!0!!1
    let myList = tail str 
    let edges = map  (\s -> ((s!!0, s!!1), s!!2)) myList
    let graph = insertList edges Map.empty
 
-   let size = (length str) 
-   return $! showShortestPaths [0..300] (Sum <$> graph)
-   print size
+   time $ product [1..10000] `seq` return ()
+
+   --t1 <- getCurrentTime
+   --usleep 100000 -- 100ms
+   --return $! showShortestPaths [0..nodesQty] (Sum <$> graph)
+   -- -- getCurrentTime/UTCTime has a precision of 1 picosecond, full precision is used by default
+   --t2 <- getCurrentTime
+   --putStr . show $ (diffUTCTime t2 t1)
+   --print (diffUTCTime t2 t1)   
+   
    -- Ejecucion
    -- ghc Floyd.hs -o Floyd
    -- ./Floyd sparse1.txt
 
-=======
-showShortestPaths v g = mapM_ print $ toList $ findMinDistances v g
->>>>>>> 7882368f42fea18f5b4dc6baedd164b83d70f62d
-
-
-
-
-main :: IO()
-main = do
-   args <- getArgs
-   content <- readFile (args !! 0)
-   let str = map (read::Integer)(words content) -- :: [Integer]
-   elemAt 1 (str)
-   print str
-   --let str = words content 
-      --str = f str
-      --data = executeList 0 list
-   --showShortestPaths [1..4] (Sum <$> g)
-   --let valor =  str!!1 
-   --print str
 
 -- Ejecucion Linux despues de instalar Haskell 
 -- Creo que lo que falta es usar openFile o withFile para hacer el g (lista con Key:Value)
