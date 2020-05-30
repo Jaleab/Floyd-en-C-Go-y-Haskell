@@ -56,7 +56,7 @@ g = fromList [((2,1), 4)
              ,((4,2), -1)
              , ((5,5), 0)]
 --showShortestPaths v g = mapM_ print $ toList $ findMinDistances v g
-showShortestPaths v g = toList $ (findMinDistances v g)
+showShortestPaths v g = (findMinDistances v g)
 
 
 insertList :: Ord key => [(key,elt)] -> Map key elt -> Map key elt
