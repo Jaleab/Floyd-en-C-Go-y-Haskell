@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Borrar el archivo viejo
+rm -f time.csv
+echo "rm -f time.csv"
+
+# Compilar
+gcc Floyd.c -o FloydC
+echo "gcc Floyd.c -o FloydC"
+go build -o FloydGo Floyd.go
+echo "go build -o FloydGo Floyd.go"
+ghc Floyd.hs -o FloydHaskell
+echo "ghc Floyd.hs -o FloydHaskell"
+
 files=$( ls *txt )
 languages=(C Go Haskell)
 declare -A pairs
@@ -19,6 +31,8 @@ done
 random=( $(shuf -e "${pairs[@]}") )
 
 # Generar el csv y tomar tiempos
+
+echo "language,file,type,time" >> time.csv
 for r in ${random[@]}
 do
 	# Separar en variables
@@ -38,15 +52,19 @@ do
 	# Ejecucion de cada implementacion
 	case $lang in
 		"C")
+			echo "Running: FloydC" $graph "..."
 			./FloydC $graph >> time.csv
 			echo "" >> time.csv
 			;;
 		"Go")
+			echo "Running: FloydGo" $graph "..."
 			./FloydGo -file=$graph >> time.csv
 			echo "" >> time.csv
 			;;
 		"Haskell")
-			echo "time Haskell" >> time.csv
+			echo "Running: FloydHaskell" $graph "..."
+			./FloydHaskell $graph >> time.csv
+			echo "" >> time.csv
 			;;
 	esac
 done
