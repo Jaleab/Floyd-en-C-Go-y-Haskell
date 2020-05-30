@@ -85,7 +85,7 @@ main = do
    let edges = map  (\s -> ((s!!0, s!!1), s!!2)) myList
    let graph = insertList edges Map.empty
 
-   time $ product [1..10000] `seq` return ()
+   time $ (showShortestPaths [0..nodesQty] (Sum <$> graph)) `seq` return ()
 
    --t1 <- getCurrentTime
    --usleep 100000 -- 100ms
