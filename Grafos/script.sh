@@ -9,8 +9,8 @@ gcc Floyd.c -o FloydC
 echo "gcc Floyd.c -o FloydC"
 go build -o FloydGo Floyd.go
 echo "go build -o FloydGo Floyd.go"
-ghc Floyd.hs -o FloydHaskell
-echo "ghc Floyd.hs -o FloydHaskell"
+ghc -o FloydHaskell -O2 Floyd.hs -optc-O2 --make
+echo "ghc -o FloydHaskell -O2 Floyd.hs -optc-O2 --make"
 
 files=$( ls *txt )
 languages=(C Go Haskell)
